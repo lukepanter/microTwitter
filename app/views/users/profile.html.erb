@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+
+
+<%name = params[:name]%>
+<%@user = User.find_by(name: name)%>
+<%pid = session[:user_id] %>
+<%puser = User.find_by(id: pid)%>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">UTwitter</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href=<%= new_post_path(:id=>session[:user_id])%> >Create Post</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= <%= edit_user_path(puser)%>>Edit profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "http://localhost:3000/main">Log out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+
+<%follow = Follow.find_by(follower: @user.id,followee: pid )%>
+<%if follow == nil%>
+  <a href= <%="/follow/#{@user.id}"%> class="btn btn-primary btn-lg " tabindex="-1" role="button" >Follow</a>
+<%else%>
+  <a href= <%="/unfollow/#{@user.id}"%> class="btn btn-warning btn-lg " tabindex="-1" role="button" >Unfollow</a>
+<%end%>
+
+<!-- <table>
+  <thead>
+    <tr>
+      <th>msg</th>      
+      <th>time</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead> -->
+
+  <div>
+    <% @user.posts.each do |post| %>
+      <div>
+      	<div>--------------------------</div>
+        <%id = post.user_id  %>
+        <%user = User.find_by(id: id)%>
+        <div><%=  user.name%></div>
+        <div><%= post.msg %></div>
+        <div><%= post.updated_at %></div>
+        <div>--------------------------</div>
+      <div>
+    <% end %>
+  </div>
+
+
+<br>

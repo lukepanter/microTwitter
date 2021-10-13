@@ -1,0 +1,16 @@
+<%= simple_form_for(@user, method: :post, url: '/login') do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<p id="alert"><%= alert %></p>
+
+  <div class="form-inputs">
+    <%= f.input :email %>
+    <%= f.input :password %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Login"  %>
+  </div>
+
+  <%= link_to 'Sign up', new_user_path %>
+<% end %>
