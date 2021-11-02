@@ -28,11 +28,11 @@ class UsersController < ApplicationController
     temp = user_params["email"] 
     tempU = User.find_by(email:temp)
     if tempU != nil
-      redirect_to main_path
+      redirect_to main_path,alert: "Can't use this email"
     else
         respond_to do |format|
           if @user.save
-            format.html { redirect_to @user, notice: "User was successfully created." }
+            format.html { redirect_to main_path, notice: "User was successfully created." }
             format.json { render :show, status: :created, location: @user }
           else
             format.html { render :new, status: :unprocessable_entity }
@@ -98,6 +98,9 @@ class UsersController < ApplicationController
     end
 
     def feed
+      id = params[:id]
+      @user = User.find_by(id: id)
+      @pfeed = @user.get_feed_post
     end
 
     def profile

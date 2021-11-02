@@ -1,7 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<%id = params[:id]%>
-<%@user = User.find_by(id: id)%>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">UTwitter</a>
@@ -11,7 +10,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href=<%= new_post_path(:id=>@user.id)%> >Create Post</a>
+          <a class="nav-link" href= "/feed/<%=session[:user_id]%>">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href=<%= new_post_path(:id=>session[:user_id])%> >Create Post</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href= <%= edit_user_path(@user)%>>Edit profile</a>
@@ -42,22 +44,10 @@
       <th colspan="2"></th>
     </tr>
   </thead> -->
-  <%pfeed = Array.new%>
-  <%listOfFollower = @user.followees%>
-  <%listOfFollower.each do |follower|%>
-    <%tId = follower.follower_id %>
-    <%tUser = User.find_by(id: tId)%>
-    <%tUser.posts.each do |post|%>
-      <%pfeed.push(post)%>
-    <%end%>
-  <%end%>
-  <%@user.posts.each do |post|%>
-    <%pfeed.push(post)%>
-  <%end%>
-  <%pfeed.sort! { |a,b| a.updated_at <=> b.updated_at }.reverse!%>
+  <% posts = @pfeed %>
   <div>
-    <% pfeed.each do |post| %>
-      <div>
+    <% posts.each do |post| %>
+      <!-- <div>
       	<div>--------------------------</div>
         <%id = post.user_id  %>
         <%user = User.find_by(id: id)%>
@@ -65,7 +55,49 @@
         <div><%= post.msg %></div>
         <div><%= post.updated_at %></div>
         <div>--------------------------</div>
-      <div>
+      <div> -->
+      <div class="card" style="width: 18rem;">
+      <%id = post.user_id  %>
+      <%user = User.find_by(id: id)%>
+      <div class="card-body">
+      <h5 class="card-title"><%=  user.name%></h5>
+      <h6 class="card-subtitle mb-2 text-muted"><%= post.updated_at %></h6>
+      <p class="card-text"><%= post.msg %></p>
+      <%like = Like.find_by(post_id: post.id,user_id: session[:user_id] )%>
+      <%if like == nil%>
+      <a href= <%="/like/#{post.id}"%> class="btn btn-primary btn-sm " tabindex="-1" role="button" >Like</a>
+      <%else%>
+      <a href= <%="/unlike/#{post.id}"%> class="btn btn-warning btn-sm " tabindex="-1" role="button" >Unlike</a>
+      <%end%>
+      <!-- Button trigger modal -->
+      <button class="card-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <%="Like: #{post.get_count_like}"%>
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Total Likes</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <%likeUser = post.get_user_like%>
+              <%likeUser.each do |like| %>
+                <%userLike = User.find_by(id: like.user_id)%>
+                <a href="/profile/<%=userLike.name%>"><%=userLike.name%></a>
+              <%end%>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+      </div>
     <% end %>
   </div>
 

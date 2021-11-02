@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :likes
   resources :follows
   resources :posts
   resources :users
@@ -10,4 +11,6 @@ Rails.application.routes.draw do
   get 'profile/:name' ,to: 'users#profile'
   get 'follow/:id' ,to: 'follows#follow'
   get 'unfollow/:id' ,to: 'follows#unfollow'
+  get 'like/:id' ,to: 'likes#like'
+  get 'unlike/:id' ,to: 'likes#unlike'
 end

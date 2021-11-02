@@ -10,29 +10,29 @@ class FollowsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Follows"
   end
 
-  test "creating a Follow" do
-    visit follows_url
-    click_on "New Follow"
+  # test "creating a Follow" do
+  #   visit follows_url
+  #   click_on "New Follow"
 
-    fill_in "Followee", with: @follow.followee_id
-    fill_in "Follower", with: @follow.follower_id
-    click_on "Create Follow"
+  #   fill_in "Followee", with: @follow.followee_id
+  #   fill_in "Follower", with: @follow.follower_id
+  #   click_on "Create Follow"
 
-    assert_text "Follow was successfully created"
-    click_on "Back"
-  end
+  #   assert_text "Follow was successfully created"
+  #   click_on "Back"
+  # end
 
-  test "updating a Follow" do
-    visit follows_url
-    click_on "Edit", match: :first
+  # test "updating a Follow" do
+  #   visit follows_url
+  #   click_on "Edit", match: :first
 
-    fill_in "Followee", with: @follow.followee_id
-    fill_in "Follower", with: @follow.follower_id
-    click_on "Update Follow"
+  #   fill_in "Followee", with: @follow.followee_id
+  #   fill_in "Follower", with: @follow.follower_id
+  #   click_on "Update Follow"
 
-    assert_text "Follow was successfully updated"
-    click_on "Back"
-  end
+  #   assert_text "Follow was successfully updated"
+  #   click_on "Back"
+  # end
 
   test "destroying a Follow" do
     visit follows_url
