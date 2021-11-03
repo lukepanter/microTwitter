@@ -9,6 +9,12 @@ class Post < ApplicationRecord
     count = Like.where("post_id = #{self.id}").size()
   end
   def get_user_like
-    return Like.where("post_id = #{self.id}")
+    likeName = Array.new
+    likeUser =Like.where("post_id = #{self.id}")
+    likeUser.each do |like|
+      userLike = User.find_by(id: like.user_id)
+      likeName.append(userLike.name)
+    end
+    return likeName 
   end
 end

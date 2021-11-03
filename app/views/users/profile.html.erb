@@ -74,12 +74,13 @@
       <a href= <%="/unlike/#{post.id}"%> class="btn btn-warning btn-sm " tabindex="-1" role="button" >Unlike</a>
       <%end%>
       <!-- Button trigger modal -->
-      <button class="card-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <button class="card-link" data-bs-toggle="modal" data-bs-target="#exampleModal<%=post.id%>">
       <%="Like: #{post.get_count_like}"%>
       </button>
+      <div><%= post.get_user_like%></div>
 
       <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="exampleModal<%=post.id%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -89,8 +90,7 @@
             <div class="modal-body">
               <%likeUser = post.get_user_like%>
               <%likeUser.each do |like| %>
-                <%userLike = User.find_by(id: like.user_id)%>
-                <a href="/profile/<%=userLike.name%>"><%=userLike.name%></a>
+                <a href="/profile/<%=like%>"><%=like%></a>
               <%end%>
             </div>
             <div class="modal-footer">

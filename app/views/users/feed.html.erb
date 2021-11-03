@@ -69,37 +69,45 @@
       <%else%>
       <a href= <%="/unlike/#{post.id}"%> class="btn btn-warning btn-sm " tabindex="-1" role="button" >Unlike</a>
       <%end%>
+      <div><%= post.get_user_like%></div>
       <!-- Button trigger modal -->
-      <button class="card-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <button class="card-link xyz" data-bs-toggle="modal" data-bs-target="#exampleModal<%=post.id%>" data-like = '<%=post.get_user_like%>' >
       <%="Like: #{post.get_count_like}"%>
       </button>
 
       <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Total Likes</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <%likeUser = post.get_user_like%>
-              <%likeUser.each do |like| %>
-                <%userLike = User.find_by(id: like.user_id)%>
-                <a href="/profile/<%=userLike.name%>"><%=userLike.name%></a>
-              <%end%>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       </div>
       </div>
     <% end %>
   </div>
+<div class="modal fade" id="likeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Total Likes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id = "body">
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-<br>
+<script>
+  $(".xyz").click(function(){
+      var myModal = new bootstrap.Modal(document.getElementById('likeModal'), {})
+      $(".modal-body").empty();
+      const data = $(this).data("like");
+      //$(".modal-body").text(data);
+      for (let i = 0 ; i < data.length; i++) {
+        $(".modal-body").append(`<a href="/profile/${data[i]}">${data[i]}</a>`);
+      }
+      myModal.show();
+  })
+</script>
