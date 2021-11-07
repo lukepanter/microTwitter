@@ -2,7 +2,7 @@
 
 <h1>Posts</h1>
 
-<table>
+<table id = "myTable">
   <thead>
     <tr>
       <th>User</th>
@@ -24,6 +24,11 @@
   </tbody>
 </table>
 
+<script>
+  $(document).ready( function () {
+    $('#myTable').DataTable();
+  });
+</script>
 <br>
 
 <%= link_to 'New Post', new_post_path %>
