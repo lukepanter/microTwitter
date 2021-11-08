@@ -65,11 +65,10 @@
       <p class="card-text"><%= post.msg %></p>
       <%like = Like.find_by(post_id: post.id,user_id: session[:user_id] )%>
       <%if like == nil%>
-      <a href= <%="/like/#{post.id}"%> class="btn btn-primary btn-sm " tabindex="-1" role="button" >Like</a>
+      <a href= <%="/like/#{post.id}"%> class="btn btn-info btn-sm " tabindex="-1" role="button" >Like</a>
       <%else%>
       <a href= <%="/unlike/#{post.id}"%> class="btn btn-warning btn-sm " tabindex="-1" role="button" >Unlike</a>
       <%end%>
-      <div><%= post.get_user_like%></div>
       <!-- Button trigger modal -->
       <button class="card-link xyz" data-bs-toggle="modal" data-bs-target="#exampleModal<%=post.id%>" data-like = '<%=post.get_user_like%>' >
       <%="Like: #{post.get_count_like}"%>
@@ -106,7 +105,7 @@
       const data = $(this).data("like");
       //$(".modal-body").text(data);
       for (let i = 0 ; i < data.length; i++) {
-        $(".modal-body").append(`<a href="/profile/${data[i]}">${data[i]}</a>`);
+        $(".modal-body").append(`<a href="/profile/${data[i]}">${data[i]}</a><br>`);
       }
       myModal.show();
   })

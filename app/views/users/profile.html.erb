@@ -45,7 +45,7 @@
 
 <%follow = Follow.find_by(follower: @user.id,followee: pid )%>
 <%if follow == nil%>
-  <a href= <%="/follow/#{@user.id}"%> class="btn btn-primary btn-sm " tabindex="-1" role="button" >Follow</a>
+  <a href= <%="/follow/#{@user.id}"%> class="btn btn-info btn-sm " tabindex="-1" role="button" >Follow</a>
 <%else%>
   <a href= <%="/unfollow/#{@user.id}"%> class="btn btn-warning btn-sm " tabindex="-1" role="button" >Unfollow</a>
 <%end%>
@@ -59,7 +59,9 @@
   </thead> -->
 
   <div>
-    <% @user.posts.each do |post| %>
+    <%posts = @user.posts%>
+    <%nposts = posts.sort{ |a,b| a.updated_at <=> b.updated_at}.reverse%>
+    <% nposts.each do |post| %>
       <div class="card" style="width: 18rem;">
       <%id = post.user_id  %>
       <%user = User.find_by(id: id)%>
@@ -69,7 +71,7 @@
       <p class="card-text"><%= post.msg %></p>
       <%like = Like.find_by(post_id: post.id,user_id: session[:user_id] )%>
       <%if like == nil%>
-      <a href= <%="/like/#{post.id}"%> class="btn btn-primary btn-sm " tabindex="-1" role="button" >Like</a>
+      <a href= <%="/like/#{post.id}"%> class="btn btn-info btn-sm " tabindex="-1" role="button" >Like</a>
       <%else%>
       <a href= <%="/unlike/#{post.id}"%> class="btn btn-warning btn-sm " tabindex="-1" role="button" >Unlike</a>
       <%end%>
@@ -77,7 +79,6 @@
       <button class="card-link" data-bs-toggle="modal" data-bs-target="#exampleModal<%=post.id%>">
       <%="Like: #{post.get_count_like}"%>
       </button>
-      <div><%= post.get_user_like%></div>
 
       <!-- Modal -->
       <div class="modal fade" id="exampleModal<%=post.id%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -91,6 +92,7 @@
               <%likeUser = post.get_user_like%>
               <%likeUser.each do |like| %>
                 <a href="/profile/<%=like%>"><%=like%></a>
+                <br>
               <%end%>
             </div>
             <div class="modal-footer">
