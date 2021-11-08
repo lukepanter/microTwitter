@@ -1,24 +1,40 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This README will describe how microTwitter work. Before we go to detail. This website base on Ruby on Rails. 
+Moreover, I use Bootstrap 5 and jquery to implement frontend side. I developed this website on Linux in Oracle VM.
+It may be look weird in some parts because I am rookie in webdev ><. However, it is the first step that improve
+my skill. Thx everyone who see this :)
 
-Things you may want to cover:
+# Log in Page
+![login!](/screenshot/login.jpg)
 
-* Ruby version
+# Sign up Page
+![signup!](/screenshot/Signup.jpg)
 
-* System dependencies
+# Feed Page
+![feed!](/screenshot/feed.jpg)
 
-* Configuration
+# Like Feature
+![like!](/screenshot/like.jpg)
 
-* Database creation
+# NavBar Feature
+![navbar!](/screenshot/nav.jpg)
 
-* Database initialization
+# Follow & Search Profile Feature
+![follow!](/screenshot/follow.jpg)
 
-* How to run the test suite
+# Edit Profile Page
+![edit!](/screenshot/edit.jpg)
 
-* Services (job queues, cache servers, search engines, etc.)
+# Create Post Page
+![post!](/screenshot/createPost.jpg)
 
-* Deployment instructions
+# Test function
+![test!](/screenshot/test.jpg)
 
-* ...
+# Database
+![table!](/screenshot/database.jpg)
+
+
+
+
